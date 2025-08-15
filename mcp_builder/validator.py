@@ -1,4 +1,5 @@
 """Schema validation and scaffold helpers (P0)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -10,6 +11,7 @@ from jsonschema import Draft202012Validator
 
 
 # --- Schema loaders ---------------------------------------------------------
+
 
 def _load_schema(package: str, resource_name: str) -> dict:
     with resources.files(package).joinpath(resource_name).open("r", encoding="utf-8") as f:
@@ -30,6 +32,7 @@ def _plan_schema() -> dict:
 
 # --- Public validators ------------------------------------------------------
 
+
 def validate_runner(data: dict) -> None:
     Draft202012Validator(_runner_schema()).validate(data)
 
@@ -43,6 +46,7 @@ def validate_plan(data: dict) -> None:
 
 
 # --- Scaffolds --------------------------------------------------------------
+
 
 def write_scaffolds(path: Path, transport: str, lang: str, name: str, version: str) -> None:
     """Write minimal `runner.json` and `mcp.server.json` into *path*.

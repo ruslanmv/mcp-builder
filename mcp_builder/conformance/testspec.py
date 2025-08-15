@@ -8,6 +8,7 @@ For P2 we implement a pragmatic approach:
 Optional: If `modelcontextprotocol` client is available, attempt a shallow
 initialize → tools/list call. This remains best-effort to keep P2 lightweight.
 """
+
 from __future__ import annotations
 
 import json

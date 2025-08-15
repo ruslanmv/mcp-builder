@@ -1,4 +1,5 @@
 """P0 build orchestration: detect → buildpack → zip → (schemas validated)."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -46,7 +47,9 @@ def build_pipeline(ctx: BuildContext) -> List[Artifact]:
         name = (result.mcp_manifest.get("name") or "bundle").replace(" ", "-")
         transport = result.runner.get("type", "sse")
         bundle_name = f"{name}-{transport}"
-        zip_path = make_zip_bundle(ctx.outdir, result.files, result.runner, result.mcp_manifest, bundle_name=bundle_name)
+        zip_path = make_zip_bundle(
+            ctx.outdir, result.files, result.runner, result.mcp_manifest, bundle_name=bundle_name
+        )
         artifacts.append(Artifact(surface="zip", path=zip_path))
 
     return artifacts

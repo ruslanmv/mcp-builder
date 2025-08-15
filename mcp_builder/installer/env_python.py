@@ -5,6 +5,7 @@ In P2 this will:
 - install requirements via `uv sync` if `uv.lock` exists, else `pip install -r requirements.txt`
 - optionally freeze exact wheels and hashes for reproducibility
 """
+
 from __future__ import annotations
 
 from pathlib import Path

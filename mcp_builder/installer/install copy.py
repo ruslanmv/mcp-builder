@@ -9,6 +9,7 @@ Behavior:
 - Write a `runner.lock.json` with minimal metadata
 - Optionally run a quick smoke probe to ensure the process starts
 """
+
 from __future__ import annotations
 
 import json
@@ -43,6 +44,7 @@ class InstallResult:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _load_runner_and_manifest(dir_path: Path) -> Tuple[dict | None, dict | None]:
     runner = None
@@ -82,7 +84,15 @@ def _final_path(alias: str, version: str) -> Path:
     return RUNNERS_HOME / alias / version
 
 
-def _write_lock(target_dir: Path, *, alias: str, version: str, source: str, bundle_sha256: str | None, runner: dict) -> None:
+def _write_lock(
+    target_dir: Path,
+    *,
+    alias: str,
+    version: str,
+    source: str,
+    bundle_sha256: str | None,
+    runner: dict,
+) -> None:
     lock = {
         "alias": alias,
         "version": version,
@@ -122,6 +132,7 @@ def _maybe_fetch_remote_digest(url: str) -> Optional[str]:
 # Public API
 # ---------------------------------------------------------------------------
 
+
 def install_command(
     source: str,
     alias: str,
@@ -159,7 +170,9 @@ def install_command(
                     # Use sibling .sha256 if present
                     sidecar = Path(str(zip_path) + ".sha256")
                     if sidecar.exists():
-                        verify_sha256(zip_path, expected=sidecar.read_text(encoding="utf-8").strip())
+                        verify_sha256(
+                            zip_path, expected=sidecar.read_text(encoding="utf-8").strip()
+                        )
                 bundle_sha = sha256(zip_path)
             else:
                 url = surf.spec["url"]
@@ -197,7 +210,14 @@ def install_command(
             smoke_run(str(final_dir), run_only=False, timeout=timeout)
 
         # Write lock metadata
-        _write_lock(final_dir, alias=alias, version=version, source=source, bundle_sha256=bundle_sha, runner=runner or {})
+        _write_lock(
+            final_dir,
+            alias=alias,
+            version=version,
+            source=source,
+            bundle_sha256=bundle_sha,
+            runner=runner or {},
+        )
 
         return InstallResult(alias=alias, version=version, path=final_dir)
 

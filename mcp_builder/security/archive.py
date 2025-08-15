@@ -6,6 +6,7 @@ Guards against common archive attacks:
 - Symlink escapes (best-effort on unzip)
 - Oversized files (basic cap)
 """
+
 from __future__ import annotations
 
 import os

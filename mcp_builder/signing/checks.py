@@ -2,6 +2,7 @@
 
 Cosign/provenance hooks can be added here later without changing callers.
 """
+
 from __future__ import annotations
 
 import hashlib

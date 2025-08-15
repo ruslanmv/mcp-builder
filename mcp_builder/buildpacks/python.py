@@ -7,6 +7,7 @@ Turns detection results into a build result that includes:
 
 Zip packaging and checksums come in later phases.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

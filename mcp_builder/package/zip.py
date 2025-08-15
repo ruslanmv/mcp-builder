@@ -12,6 +12,7 @@ Design goals:
 - No directory traversal issues; only relative arcnames.
 - Small, dependency-free implementation suitable for CI use.
 """
+
 from __future__ import annotations
 
 from pathlib import Path

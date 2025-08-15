@@ -7,6 +7,7 @@ Additions:
 - --port N (inject PORT for run/probe)
 - --force (overwrite existing installation if present)
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -94,7 +95,9 @@ def build(
     result = build_python(ctx=None, info=report)
 
     (root / "runner.json").write_text(json.dumps(result.runner, indent=2), encoding="utf-8")
-    (root / "mcp.server.json").write_text(json.dumps(result.mcp_manifest, indent=2), encoding="utf-8")
+    (root / "mcp.server.json").write_text(
+        json.dumps(result.mcp_manifest, indent=2), encoding="utf-8"
+    )
 
     table = Table(title="Build Summary (P0)")
     table.add_column("File", style="cyan")
@@ -125,7 +128,9 @@ def plan(
 def run(
     target: str = typer.Argument(..., help="Path to bundle/dir or alias (dir)"),
     port: int = typer.Option(0, "--port", help="PORT to export for SSE servers"),
-    env: Optional[List[str]] = typer.Option(None, "--env", help="KEY=VAL env vars", show_default=False),
+    env: Optional[List[str]] = typer.Option(
+        None, "--env", help="KEY=VAL env vars", show_default=False
+    ),
 ) -> None:
     smoke_run(target, run_only=True, port=port, extra_env=env or [])
 
@@ -134,10 +139,14 @@ def run(
 def install(
     source: str = typer.Argument(..., help="zip URL/path or directory"),
     as_: str = typer.Option(..., "--as", help="Alias for installation"),
-    prefer: Optional[str] = typer.Option(None, "--prefer", help="Preferred surface (docker|zip|git)"),
+    prefer: Optional[str] = typer.Option(
+        None, "--prefer", help="Preferred surface (docker|zip|git)"
+    ),
     no_probe: bool = typer.Option(False, "--no-probe", help="Skip post-install smoke probe"),
     port: int = typer.Option(0, "--port", help="PORT to export during probe"),
-    env: Optional[List[str]] = typer.Option(None, "--env", help="KEY=VAL env vars for probe", show_default=False),
+    env: Optional[List[str]] = typer.Option(
+        None, "--env", help="KEY=VAL env vars for probe", show_default=False
+    ),
     timeout: int = typer.Option(10, "--timeout", help="Probe timeout seconds"),
     force: bool = typer.Option(False, "--force", help="Overwrite existing installation if present"),
 ) -> None:

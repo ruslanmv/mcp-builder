@@ -3,6 +3,7 @@
 This app exposes a single `hello` tool over Server-Sent Events at /messages/.
 It also provides a /healthz endpoint for readiness checks.
 """
+
 from __future__ import annotations
 
 import anyio

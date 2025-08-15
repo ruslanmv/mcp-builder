@@ -4,6 +4,7 @@ Turns a Node project into a bundle candidate by selecting an entry file,
 copying `server.js` and `package.json`, and synthesizing a minimal runner and
 self-describing manifest. Zip packaging is handled by `package/zip.py`.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

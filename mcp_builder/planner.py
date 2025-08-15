@@ -1,4 +1,5 @@
 """Plan emission for Matrix Hub installer (P0)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -23,10 +24,21 @@ def emit_install_plan(bundle_path: Path, name: str = "unnamed", transport: str =
     plan = {
         "id": f"mcp_server:{name}@0.0.0",
         "artifacts": [
-            {"kind": "zip", "spec": {"url": bundle_path.as_uri(), "digest": f"sha256:{sha_hex}", "dest": "server"}}
+            {
+                "kind": "zip",
+                "spec": {
+                    "url": bundle_path.as_uri(),
+                    "digest": f"sha256:{sha_hex}",
+                    "dest": "server",
+                },
+            }
         ],
         "mcp_registration": {
-            "server": {"name": name, "transport": transport, "url": "http://127.0.0.1:8000/messages/"}
+            "server": {
+                "name": name,
+                "transport": transport,
+                "url": "http://127.0.0.1:8000/messages/",
+            }
         },
     }
     validate_plan(plan)

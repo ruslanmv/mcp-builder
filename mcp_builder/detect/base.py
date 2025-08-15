@@ -3,6 +3,7 @@
 This module defines the typed contract for detectors and a simple dispatcher that
 tries Python detection first (additional detectors are added in later phases).
 """
+
 from __future__ import annotations
 
 from pathlib import Path

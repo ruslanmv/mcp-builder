@@ -41,6 +41,7 @@ dependencies = [
 dev = [
   "pytest>=8",
   "pytest-asyncio>=0.23",
+  "pytest-timeout>=2.3.1", 
   "ruff>=0.4",
   "black>=24.3",
   "mypy>=1.10",

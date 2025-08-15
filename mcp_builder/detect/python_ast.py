@@ -7,6 +7,7 @@ Heuristics:
 
 We avoid heavy AST parsing in P0 for speed and simplicity; deeper analysis lands in P1.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -23,7 +24,7 @@ def detect(root: Path) -> DetectReport:
             lang="python",
             transport="sse",
             entrypoints=["server_sse.py"],
-            notes=["Found server_sse.py (SSE)"]
+            notes=["Found server_sse.py (SSE)"],
         )
     if server_stdio.exists():
         return DetectReport(
@@ -31,7 +32,7 @@ def detect(root: Path) -> DetectReport:
             lang="python",
             transport="stdio",
             entrypoints=["server.py"],
-            notes=["Found server.py (STDIO)"]
+            notes=["Found server.py (STDIO)"],
         )
     # Unknown layout but Python-ish project? Look for requirements/pyproject as hint
     if (root / "pyproject.toml").exists() or (root / "requirements.txt").exists():

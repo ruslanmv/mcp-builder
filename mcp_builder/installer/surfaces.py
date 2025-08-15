@@ -5,6 +5,7 @@ Examples:
 - https://github.com/org/repo.git@v1.2.3
 - https://gitlab.com/org/repo.git@main
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -81,17 +81,32 @@ fmt: venv ## Format with black
 	@echo " auto-formatting with black..."
 	$(BLACK) .
 
-unit: venv ## Run unit tests
+unit: venv ## Run unit tests (skip if tests/unit missing)
 	@echo " running unit tests..."
-	$(PYTEST) -q tests/unit
+	@if [ -d tests/unit ]; then \
+	  $(PYTEST) -q tests/unit ; \
+	else \
+	  echo "⚠️  Skipping: no tests/unit directory"; \
+	fi
 
-integration: venv ## Run integration tests
+integration: venv ## Run integration tests (skip if tests/integration missing)
 	@echo " running integration tests..."
-	$(PYTEST) -q tests/integration
+	@if [ -d tests/integration ]; then \
+	  $(PYTEST) -q tests/integration ; \
+	else \
+	  echo "⚠️  Skipping: no tests/integration directory"; \
+	fi
 
-test: unit integration ## Run all tests
+test: venv ## Run all tests discovered (both suites if present)
+	@echo " running all tests..."
+	# If specific dirs exist, run both; otherwise run discovery at repo root
+	@if [ -d tests/unit ] || [ -d tests/integration ]; then \
+	  if [ -d tests/unit ]; then $(PYTEST) -q tests/unit ; else echo "⚠️  Skipping unit (missing)"; fi ; \
+	  if [ -d tests/integration ]; then $(PYTEST) -q tests/integration ; else echo "⚠️  Skipping integration (missing)"; fi ; \
+	else \
+	  $(PYTEST) -q ; \
+	fi
 
-quality: lint test ## Run all quality checks (lint + test)
 
 # ----------------------------------------------------------------------------- #
 # Docs

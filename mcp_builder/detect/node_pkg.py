@@ -5,6 +5,7 @@ Heuristics:
 - Entry candidates: `server.js`, `src/server.js`, `index.js`
 - Transport guess: `sse` if a string contains `/messages/` and a web framework dep is present; otherwise `stdio`
 """
+
 from __future__ import annotations
 
 import json
@@ -41,7 +42,9 @@ def detect(root: Path) -> DetectReport:
     if not pkg:
         return DetectReport(score=0.0, notes=["No package.json found"])
 
-    deps = set((pkg.get("dependencies") or {}).keys()) | set((pkg.get("devDependencies") or {}).keys())
+    deps = set((pkg.get("dependencies") or {}).keys()) | set(
+        (pkg.get("devDependencies") or {}).keys()
+    )
     if not (_NODE_HINT_DEPS & deps):
         # Not clearly an MCP node project
         return DetectReport(score=0.3, lang="node", notes=["No MCP SDK dep detected"])

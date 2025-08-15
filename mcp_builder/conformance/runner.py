@@ -9,6 +9,7 @@ Responsibilities (minimal):
 
 This is a smoke check only — protocol handshakes arrive in P2.
 """
+
 from __future__ import annotations
 
 import json

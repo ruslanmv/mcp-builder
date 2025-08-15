@@ -1,4 +1,5 @@
 """Structured logging helpers: JSON lines with context."""
+
 from __future__ import annotations
 
 import json
