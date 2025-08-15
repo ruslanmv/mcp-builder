@@ -6,7 +6,7 @@
 #   make venv          # create .venv and install dev+docs extras
 #   make install       # install package (editable) into .venv + sanity checks
 #   make quality       # run all quality gates (lint + test)
-#   make lint fmt test # run individual quality gates
+#   make lint fmt lint-fix test  # run individual quality gates
 #   make unit integration
 #   make docs-serve    # live docs at http://127.0.0.1:8001
 #   make build         # build wheel/sdist for PyPI
@@ -28,7 +28,7 @@ RUFF     := $(BIN)/ruff
 BLACK    := $(BIN)/black
 MKDOCS   := $(BIN)/mkdocs
 
-.PHONY: help venv install env-info lint fmt unit integration test quality docs-serve docs-build build clean
+.PHONY: help venv install env-info lint fmt lint-fix unit integration test quality docs-serve docs-build build clean
 
 # ----------------------------------------------------------------------------- #
 # Help
@@ -81,6 +81,14 @@ fmt: venv ## Format with black
 	@echo " auto-formatting with black..."
 	$(BLACK) .
 
+lint-fix: venv ## Auto-fix imports/format/pyupgrade via Ruff + Black
+	# Reorder/clean imports (I), fix common issues, and modernize types (UP)
+	$(RUFF) check . --fix
+	# Ensure imports are sorted even inside function scopes
+	$(RUFF) check . --select I --fix
+	# Final formatting pass
+	$(BLACK) .
+
 unit: venv ## Run unit tests (skip if tests/unit missing)
 	@echo " running unit tests..."
 	@if [ -d tests/unit ]; then \
@@ -106,7 +114,6 @@ test: venv ## Run all tests discovered (both suites if present)
 	else \
 	  $(PYTEST) -q ; \
 	fi
-
 
 # ----------------------------------------------------------------------------- #
 # Docs
