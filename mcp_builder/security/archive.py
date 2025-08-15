@@ -14,7 +14,6 @@ import stat
 import zipfile
 from pathlib import Path
 
-
 MAX_MEMBER_BYTES = 128 * 1024 * 1024  # 128 MiB per member (adjust as needed)
 
 

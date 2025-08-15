@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pytest
@@ -80,6 +79,7 @@ def test_cli_install_from_dir(tmp_path, monkeypatch):
 
     # Import CLI only after monkeypatch so everything lines up
     from typer.testing import CliRunner
+
     from mcp_builder.cli import app
 
     runner = CliRunner()

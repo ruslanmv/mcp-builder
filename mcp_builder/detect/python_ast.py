@@ -11,6 +11,7 @@ We avoid heavy AST parsing in P0 for speed and simplicity; deeper analysis lands
 from __future__ import annotations
 
 from pathlib import Path
+
 from .base import DetectReport
 
 

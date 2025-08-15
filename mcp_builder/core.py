@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
 
-from mcp_builder.detect.base import detect_project, DetectReport
-from mcp_builder.buildpacks.python import build as py_build, BuildResult
+from mcp_builder.buildpacks.python import BuildResult
+from mcp_builder.buildpacks.python import build as py_build
+from mcp_builder.detect.base import DetectReport, detect_project
 from mcp_builder.package.zip import make_zip_bundle
 from mcp_builder.validator import validate_mcp_manifest, validate_runner
 
@@ -27,7 +27,7 @@ class BuildContext:
     hermetic: bool = False
 
 
-def build_pipeline(ctx: BuildContext) -> List[Artifact]:
+def build_pipeline(ctx: BuildContext) -> list[Artifact]:
     ctx.outdir.mkdir(parents=True, exist_ok=True)
 
     report: DetectReport = detect_project(ctx.root)

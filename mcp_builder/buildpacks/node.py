@@ -9,14 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
 
 from mcp_builder.detect.base import DetectReport
 
 
 @dataclass
 class BuildResult:
-    files: List[Path]
+    files: list[Path]
     runner: dict
     mcp_manifest: dict
 
@@ -41,7 +40,7 @@ def build(ctx, info: DetectReport) -> BuildResult:
     root = Path(".").resolve() if ctx is None else Path(getattr(ctx, "root", ".")).resolve()
 
     entry = _select_entry(root, info)
-    files: List[Path] = []
+    files: list[Path] = []
     if entry.exists():
         files.append(entry)
 

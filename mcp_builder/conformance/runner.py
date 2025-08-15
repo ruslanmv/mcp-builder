@@ -19,12 +19,11 @@ import subprocess
 import tempfile
 import time
 from pathlib import Path
-from typing import Tuple
 
 from mcp_builder.security.archive import safe_extract_zip
 
 
-def _load_runner_from_dir(dir_path: Path) -> Tuple[dict, Path]:
+def _load_runner_from_dir(dir_path: Path) -> tuple[dict, Path]:
     runner_path = dir_path / "runner.json"
     if runner_path.exists():
         return json.loads(runner_path.read_text(encoding="utf-8")), dir_path
@@ -38,7 +37,7 @@ def _load_runner_from_dir(dir_path: Path) -> Tuple[dict, Path]:
     return {"type": "stdio", "command": ["python", "server.py"]}, dir_path
 
 
-def _prepare_target(target: Path) -> Tuple[dict, Path, Path | None]:
+def _prepare_target(target: Path) -> tuple[dict, Path, Path | None]:
     """Return (runner, workdir, temp_root_if_any)."""
     if target.is_dir():
         runner, workdir = _load_runner_from_dir(target)

@@ -10,18 +10,17 @@ Additions:
 
 from __future__ import annotations
 
-from pathlib import Path
 import json
-from typing import Optional, List
+from pathlib import Path
 
 import typer
 from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
 
-from mcp_builder.detect.base import detect_project
 from mcp_builder.buildpacks.python import build as build_python
 from mcp_builder.conformance.runner import smoke_run
+from mcp_builder.detect.base import detect_project
 from mcp_builder.installer.install import install_command
 from mcp_builder.planner import emit_install_plan
 
@@ -42,7 +41,6 @@ def init(
     name: str = typer.Option("unnamed", help="Server name for scaffolds"),
     version: str = typer.Option("0.0.0", help="Server version for scaffolds"),
 ) -> None:
-    from mcp_builder.validator import write_scaffolds
 
     root = Path(path)
     root.mkdir(parents=True, exist_ok=True)
@@ -114,7 +112,7 @@ def plan(
     bundle: str = typer.Argument(..., help="Path to the zip bundle"),
     name: str = typer.Option("unnamed", help="Server name (plan id & registration)"),
     transport: str = typer.Option("SSE", help='Transport string for registration ("SSE"/"STDIO")'),
-    out: Optional[str] = typer.Option(None, "--out", help="Write to file instead of stdout"),
+    out: str | None = typer.Option(None, "--out", help="Write to file instead of stdout"),
 ) -> None:
     payload = emit_install_plan(Path(bundle), name=name, transport=transport)
     if out:
@@ -128,7 +126,7 @@ def plan(
 def run(
     target: str = typer.Argument(..., help="Path to bundle/dir or alias (dir)"),
     port: int = typer.Option(0, "--port", help="PORT to export for SSE servers"),
-    env: Optional[List[str]] = typer.Option(
+    env: list[str] | None = typer.Option(
         None, "--env", help="KEY=VAL env vars", show_default=False
     ),
 ) -> None:
@@ -139,12 +137,12 @@ def run(
 def install(
     source: str = typer.Argument(..., help="zip URL/path or directory"),
     as_: str = typer.Option(..., "--as", help="Alias for installation"),
-    prefer: Optional[str] = typer.Option(
+    prefer: str | None = typer.Option(
         None, "--prefer", help="Preferred surface (docker|zip|git)"
     ),
     no_probe: bool = typer.Option(False, "--no-probe", help="Skip post-install smoke probe"),
     port: int = typer.Option(0, "--port", help="PORT to export during probe"),
-    env: Optional[List[str]] = typer.Option(
+    env: list[str] | None = typer.Option(
         None, "--env", help="KEY=VAL env vars for probe", show_default=False
     ),
     timeout: int = typer.Option(10, "--timeout", help="Probe timeout seconds"),
@@ -173,8 +171,9 @@ def verify(
     bundle: str = typer.Argument(..., help="Path to zip bundle"),
     sha256: str = typer.Argument(..., help="Expected digest (hex or sha256:<hex>)"),
 ) -> None:
-    from mcp_builder.signing.checks import verify_sha256
     from pathlib import Path as _P
+
+    from mcp_builder.signing.checks import verify_sha256
 
     verify_sha256(_P(bundle), expected=sha256)
     rprint("[green]SHA-256 verified.[/green]")

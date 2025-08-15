@@ -15,11 +15,11 @@ Design goals:
 
 from __future__ import annotations
 
-from pathlib import Path
 import hashlib
 import json
 import zipfile
-from typing import Iterable
+from collections.abc import Iterable
+from pathlib import Path
 
 
 def _sha256_bytes(data: bytes) -> str:

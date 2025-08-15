@@ -7,7 +7,8 @@ tries Python detection first (additional detectors are added in later phases).
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Protocol, List
+from typing import Protocol
+
 from pydantic import BaseModel
 
 
@@ -33,9 +34,9 @@ class DetectReport(BaseModel):
     score: float = 0.0
     lang: str | None = None
     transport: str | None = None
-    entrypoints: List[str] = []
+    entrypoints: list[str] = []
     tools: list[dict] = []
-    notes: List[str] = []
+    notes: list[str] = []
 
 
 class Detector(Protocol):

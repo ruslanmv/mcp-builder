@@ -5,12 +5,12 @@ from pathlib import Path
 
 import pytest
 
-from mcp_builder.validator import (
-    write_scaffolds,
-    validate_runner,
-    validate_mcp_manifest,
-)
 from mcp_builder.signing.checks import sha256, verify_sha256
+from mcp_builder.validator import (
+    validate_mcp_manifest,
+    validate_runner,
+    write_scaffolds,
+)
 
 
 def _read_json(p: Path) -> dict:

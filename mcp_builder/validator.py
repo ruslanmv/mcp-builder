@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import json
 from importlib import resources
-from typing import Any
+from pathlib import Path
 
 from jsonschema import Draft202012Validator
-
 
 # --- Schema loaders ---------------------------------------------------------
 

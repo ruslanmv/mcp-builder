@@ -11,11 +11,9 @@ initialize → tools/list call. This remains best-effort to keep P2 lightweight.
 
 from __future__ import annotations
 
-import json
 import subprocess
 import time
 from pathlib import Path
-from typing import Tuple
 
 import httpx
 
@@ -26,7 +24,7 @@ class TestFailure(Exception):
     pass
 
 
-def _start_process(target: Path) -> Tuple[subprocess.Popen, dict, Path, Path | None]:
+def _start_process(target: Path) -> tuple[subprocess.Popen, dict, Path, Path | None]:
     runner, workdir, tmp = _prepare_target(target)
     cmd = runner.get("command")
     if not isinstance(cmd, list) or not cmd:

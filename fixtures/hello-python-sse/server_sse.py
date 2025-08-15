@@ -7,14 +7,13 @@ It also provides a /healthz endpoint for readiness checks.
 from __future__ import annotations
 
 import anyio
+import mcp.types as types
+from mcp.server.lowlevel import Server
+from mcp.server.models import InitializationOptions
+from mcp.server.sse import SseServerTransport
 from starlette.applications import Starlette
 from starlette.responses import PlainTextResponse
 from starlette.routing import Route
-
-from mcp.server.lowlevel import Server
-from mcp.server.sse import SseServerTransport
-from mcp.server.models import InitializationOptions
-import mcp.types as types
 
 server = Server("hello")
 transport = SseServerTransport(endpoint="/messages/")

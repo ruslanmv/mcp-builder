@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, Literal
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
 class RunnerModel(BaseModel):
     type: Literal["stdio", "sse"]
-    command: Optional[List[str]] = None
-    url: Optional[str] = None
+    command: list[str] | None = None
+    url: str | None = None
     env: dict = Field(default_factory=dict)
     limits: dict = Field(default_factory=dict)
     security: dict = Field(default_factory=dict)
@@ -17,20 +18,20 @@ class RunnerModel(BaseModel):
 
 class TransportModel(BaseModel):
     type: Literal["stdio", "sse"]
-    url: Optional[str] = None
-    health: Optional[str] = None
+    url: str | None = None
+    health: str | None = None
 
 
 class McpManifestModel(BaseModel):
     schemaVersion: str | int
     name: str
     version: str
-    transports: List[TransportModel]
-    tools: List[str | dict] = Field(default_factory=list)
+    transports: list[TransportModel]
+    tools: list[str | dict] = Field(default_factory=list)
     limits: dict = Field(default_factory=dict)
     security: dict = Field(default_factory=dict)
     build: dict = Field(default_factory=dict)
-    digest: Optional[dict] = None
+    digest: dict | None = None
 
 
 class ArtifactSpec(BaseModel):
@@ -40,5 +41,5 @@ class ArtifactSpec(BaseModel):
 
 class PlanModel(BaseModel):
     id: str
-    artifacts: List[ArtifactSpec]
-    mcp_registration: Optional[dict] = None
+    artifacts: list[ArtifactSpec]
+    mcp_registration: dict | None = None

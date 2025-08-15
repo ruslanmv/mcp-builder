@@ -12,14 +12,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
 
 from mcp_builder.detect.base import DetectReport
 
 
 @dataclass
 class BuildResult:
-    files: List[Path]
+    files: list[Path]
     runner: dict
     mcp_manifest: dict
 
@@ -32,7 +31,7 @@ def build(ctx, info: DetectReport) -> BuildResult:
     root = Path(".").resolve() if ctx is None else Path(getattr(ctx, "root", ".")).resolve()
 
     server_path = root / entry
-    files: List[Path] = [server_path]
+    files: list[Path] = [server_path]
 
     req = root / "requirements.txt"
     if req.exists():

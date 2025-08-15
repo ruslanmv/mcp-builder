@@ -18,19 +18,17 @@ import os
 import shutil
 import tempfile
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Tuple, Optional
 
 import httpx
 
-from mcp_builder.installer.surfaces import resolve_surface, Surface
+from mcp_builder.conformance.runner import smoke_run
+from mcp_builder.detect.base import detect_project
+from mcp_builder.installer.surfaces import Surface, resolve_surface
 from mcp_builder.security.archive import safe_extract_zip
 from mcp_builder.signing.checks import sha256, verify_sha256
-from mcp_builder.conformance.runner import smoke_run
 from mcp_builder.validator import write_scaffolds
-from mcp_builder.detect.base import detect_project
-
 
 RUNNERS_HOME = Path(os.path.expanduser("~/.matrix/runners"))
 
@@ -47,7 +45,7 @@ class InstallResult:
 # ---------------------------------------------------------------------------
 
 
-def _load_runner_and_manifest(dir_path: Path) -> Tuple[dict | None, dict | None]:
+def _load_runner_and_manifest(dir_path: Path) -> tuple[dict | None, dict | None]:
     runner = None
     manifest = None
     rp = dir_path / "runner.json"
@@ -59,7 +57,7 @@ def _load_runner_and_manifest(dir_path: Path) -> Tuple[dict | None, dict | None]
     return runner, manifest
 
 
-def _synthesize_if_missing(dir_path: Path, alias: str) -> Tuple[dict, dict]:
+def _synthesize_if_missing(dir_path: Path, alias: str) -> tuple[dict, dict]:
     runner, manifest = _load_runner_and_manifest(dir_path)
     if runner and manifest:
         return runner, manifest
@@ -97,7 +95,7 @@ def _write_lock(
     lock = {
         "alias": alias,
         "version": version,
-        "installed_at": datetime.now(timezone.utc).isoformat(),
+        "installed_at": datetime.now(UTC).isoformat(),
         "source": source,
         "bundle_sha256": bundle_sha256,
         "runner": runner,
@@ -115,7 +113,7 @@ def _download(url: str) -> Path:
     return tmpf
 
 
-def _maybe_fetch_remote_digest(url: str) -> Optional[str]:
+def _maybe_fetch_remote_digest(url: str) -> str | None:
     # Best-effort: try <url>.sha256
     try:
         with httpx.Client(timeout=10) as client:

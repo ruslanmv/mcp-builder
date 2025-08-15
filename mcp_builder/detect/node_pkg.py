@@ -10,10 +10,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import List
 
 from mcp_builder.detect.base import DetectReport
-
 
 _NODE_HINT_DEPS = {
     "@modelcontextprotocol/sdk",
@@ -49,7 +47,7 @@ def detect(root: Path) -> DetectReport:
         # Not clearly an MCP node project
         return DetectReport(score=0.3, lang="node", notes=["No MCP SDK dep detected"])
 
-    entries: List[str] = [p for p in _CANDIDATE_ENTRIES if (root / p).exists()]
+    entries: list[str] = [p for p in _CANDIDATE_ENTRIES if (root / p).exists()]
     transport = "stdio"
     if any(d in deps for d in _WEB_DEPS):
         # best-effort text search for /messages/ endpoint
