@@ -1,0 +1,24 @@
+site_name: mcp-builder
+site_description: Build, package, install and validate MCP servers (Matrix Hub–compatible)
+repo_url: https://github.com/your-org/mcp-builder
+repo_name: your-org/mcp-builder
+copyright: "© 2025 Your Org"
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - codehilite
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - CLI: cli.md

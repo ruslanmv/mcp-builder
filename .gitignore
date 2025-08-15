@@ -1,0 +1,98 @@
+# -----------------------------------------------------------------------------
+# .gitignore for mcp-builder
+# -----------------------------------------------------------------------------
+
+# --- Python Virtual Environments ---
+.venv/
+venv/
+env/
+.env
+.env.*
+env.bak
+venv.bak
+
+# --- Python Bytecode and Caches ---
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+
+# --- Build, Packaging, and Distribution ---
+build/
+dist/
+*.egg-info/
+*.whl
+*.tar.gz
+/site/
+sdist/
+wheelhouse/
+*.spec
+
+# --- Test and Coverage Artifacts ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+pytest-report.html
+.tox/
+
+# --- Linting and Type Checking Caches ---
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# --- Documentation ---
+# MkDocs build output
+site/
+
+# --- IDE and Editor Files ---
+# Visual Studio Code
+.vscode/
+# JetBrains (PyCharm, etc.)
+.idea/
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+# Vim
+*.swp
+*.swo
+*~
+# Emacs
+*#
+# NetBeans
+/nbproject/
+
+# --- OS-specific Files ---
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Logs and Databases ---
+*.log
+*.sqlite3
+*.db
+*.db-journal
+
+# --- Secrets (as a safeguard) ---
+*.env
+secrets.ini
+*.pem
+*.key
+credentials*
+*.p12
+*.pfx
+
+# --- Jupyter Notebook ---
+.ipynb_checkpoints
+
+# --- Other ---
+.python-version
+celerybeat-schedule
+celerybeat.pid
+

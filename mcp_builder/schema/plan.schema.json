@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Matrix Hub install plan (P0)",
+  "type": "object",
+  "required": ["id", "artifacts"],
+  "properties": {
+    "id": { "type": "string" },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "spec"],
+        "properties": {
+          "kind": { "enum": ["zip", "git", "pypi", "oci", "npm"] },
+          "spec": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "mcp_registration": { "type": "object" }
+  },
+  "additionalProperties": true
+}
