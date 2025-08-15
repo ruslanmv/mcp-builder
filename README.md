@@ -8,8 +8,8 @@
 
 <p align="center">
   <a href="https://pypi.org/project/mcp-builder/"><img alt="PyPI" src="https://img.shields.io/pypi/v/mcp-builder.svg?label=PyPI&color=4c1"></a>
-  <a href="https://github.com/your-org/mcp-builder/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/your-org/mcp-builder/ci.yml?branch=main"></a>
-  <a href="https://your-org.github.io/mcp-builder/"><img alt="Docs" src="https://img.shields.io/badge/docs-mkdocs%20material-2962ff"></a>
+  <a href="https://github.com/ruslanmv/mcp-builder/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/ruslanmv/mcp-builder/ci.yml?branch=main"></a>
+  <a href="https://ruslanmv.github.io/mcp-builder/"><img alt="Docs" src="https://img.shields.io/badge/docs-mkdocs%20material-2962ff"></a>
   <a href="https://github.com/agent-matrix/matrix-hub"><img alt="Matrix Hub" src="https://img.shields.io/badge/compatible%20with-matrix--hub-brightgreen"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
 </p>
